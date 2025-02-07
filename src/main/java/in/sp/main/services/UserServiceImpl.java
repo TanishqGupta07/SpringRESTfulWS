@@ -34,5 +34,24 @@ public class UserServiceImpl implements UserService {
 		
 		return userRepository.findById(id);
 	}
+
+	@Override
+	public User updateUserDetails(int id, User newUser) {
+		
+		User userData = userRepository.findById(id).orElse(null);
+		
+		if(userData != null) {
+			return userRepository.save(newUser);
+		}
+		else {
+			throw new RuntimeException("User not found with id : "+id);
+		}
+	}
+
+	@Override
+	public void deleteUser(int id) {
+		userRepository.deleteById(id);
+		
+	}
 	
 }
